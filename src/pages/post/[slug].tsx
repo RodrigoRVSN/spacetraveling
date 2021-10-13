@@ -43,3 +43,5 @@ interface PostProps {
 
 //   // TODO
 // };
+
+// TODO: - Descrição: Input de *rich text* (HTML). Recebe valores manualmente. Esse campo será utilizado como conteúdo da seção do Post. Perceba que nas configurações do campo, selecionamos algumas opções para que o seu texto tenha varias formatações (negrito, hyperlinks, listas, etc.).
