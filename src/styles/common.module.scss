@@ -4,4 +4,22 @@
   margin: 0 auto;
   margin-top: 5rem;
   margin-bottom: 4rem;
+
+  aside {
+    margin-top: 5.5rem;
+    background-color: var(--heading);
+
+    a {
+      color: var(--background);
+      font-weight: 600;
+      font-size: 1.125rem;
+
+      height: 3.625rem;
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
