@@ -5,11 +5,16 @@
     font-size: 2.5rem;
     font-weight: 700;
   }
+  span {
+    font-style: italic;
+    color: var(--info);
+  }
 
   div {
     display: flex;
     align-items: center;
     margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     span {
       margin: 0 1.5rem 0 0.5rem;
 

@@ -6,6 +6,7 @@ import { RichText } from 'prismic-dom';
 import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
+import Link from 'next/link';
 
 import { useRouter } from 'next/router';
 import { getPrismicClient } from '../../services/prismic';
@@ -17,6 +18,7 @@ import styles from './post.module.scss';
 
 interface Post {
   first_publication_date: string | null;
+  last_publication_date: string | null;
   data: {
     title: string;
     banner: {
@@ -34,9 +36,10 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview: boolean;
 }
 
-export default function Post({ post }: PostProps): JSX.Element {
+export default function Post({ post, preview }: PostProps): JSX.Element {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -46,6 +49,14 @@ export default function Post({ post }: PostProps): JSX.Element {
   const dateFormatted = format(
     new Date(post.first_publication_date),
     'dd MMM yyyy',
+    {
+      locale: pt,
+    }
+  );
+
+  const dateEditedFormatted = format(
+    new Date(post.last_publication_date),
+    'dd MMM yyyy HH:mm',
     {
       locale: pt,
     }
@@ -81,6 +92,7 @@ export default function Post({ post }: PostProps): JSX.Element {
             <FiClock color="#DDDDDD" size={20} />
             <span>{readTime} min</span>
           </div>
+          <span>* editado em {dateEditedFormatted}</span>
           {post.data.content.map(content => (
             <>
               <h2 key={content.heading}>{content.heading}</h2>
@@ -92,6 +104,13 @@ export default function Post({ post }: PostProps): JSX.Element {
             </>
           ))}
         </main>
+        {preview && (
+          <aside>
+            <Link href="/api/exit-preview">
+              <a>Sair do modo Preview</a>
+            </Link>
+          </aside>
+        )}
       </div>
     </>
   );
@@ -131,7 +150,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const prismic = getPrismicClient();
   const response = await prismic.getByUID('posts', String(slug), {
-    ref: previewData?.ref ?? null,
+    ref: previewData?.ref || null,
   });
 
   const post = {
