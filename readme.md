@@ -1,4 +1,4 @@
-# spacetraveling
+# SpaceTraveling (https://spacetraveling-rodrigorvsn.vercel.app/)
 
 <!--- https://shields.io --->
 
@@ -11,7 +11,9 @@
 ___
 <!--- #################### mudar badges #################### --->
 
-![image](https://user-images.githubusercontent.com/75763403/137056632-98c9f288-838e-4b4f-a652-b5d501c257a7.png)
+![image](https://user-images.githubusercontent.com/75763403/137393403-bcf20799-4b00-4827-826f-ff6dcc54beeb.png)
+![image](https://user-images.githubusercontent.com/75763403/137393523-192eafa8-3d40-4095-bc34-f6bd3cce26d2.png)
+![image](https://user-images.githubusercontent.com/75763403/137393570-6c1a8bcd-b0b5-489e-ade3-dd71a22fbca0.png)
 
 <!--- #################### mudar imagem exemplo #################### --->
 ___
@@ -26,7 +28,7 @@ ___
 
 - Nextjs
 - Typescript
-- Prismic CMS
+- Prismic CMS (https://prismic.io/docs/technologies/home-prismic-and-nextjs) 
 - Utterances
 
 <!--- #################### mudar ferramentas #################### --->
