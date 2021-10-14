@@ -29,3 +29,35 @@
   height: 25rem;
   object-fit: cover;
 }
+
+.lineDivider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--info);
+  margin: 3.75rem 0;
+}
+
+.navigationContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  div:last-child {
+    text-align: right;
+  }
+  
+  h3 {
+    font-weight: 400;
+  }
+  a {
+    margin-top: 0.5rem;
+    color: var(--highlight);
+    font-weight: 600;
+
+    transition: filter 0.3s;
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+}
