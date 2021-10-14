@@ -7,13 +7,13 @@ import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
+import { useRouter } from 'next/router';
 import { getPrismicClient } from '../../services/prismic';
 
 import Header from '../../components/Header';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
-import { useRouter } from 'next/router';
 
 interface Post {
   first_publication_date: string | null;
@@ -51,6 +51,17 @@ export default function Post({ post }: PostProps): JSX.Element {
     }
   );
 
+  const totalWords = post.data.content.reduce((acc, content) => {
+    acc += content.heading?.split(' ').length;
+    const words = content.body.map(word => word.text.split(' ').length);
+
+    words.map(word => (acc += word));
+
+    return acc;
+  }, 0);
+
+  const readTime = Math.ceil(totalWords / 200);
+
   return (
     <>
       <Header />
@@ -68,7 +79,7 @@ export default function Post({ post }: PostProps): JSX.Element {
             <FiUser color="#DDDDDD" size={20} />
             <span>{post.data.author}</span>
             <FiClock color="#DDDDDD" size={20} />
-            <span>{post.data.author}</span>
+            <span>{readTime} min</span>
           </div>
           {post.data.content.map(content => (
             <>
@@ -87,8 +98,26 @@ export default function Post({ post }: PostProps): JSX.Element {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const prismic = getPrismicClient();
+
+  const response = await prismic.query(
+    [Prismic.predicates.at('document.type', 'posts')],
+    {
+      fetch: ['posts.title', 'posts.subtitle'],
+      pageSize: 10,
+    }
+  );
+
+  const paths = response.results.map(item => {
+    return {
+      params: {
+        slug: item.uid,
+      },
+    };
+  });
+
   return {
-    paths: [],
+    paths,
     fallback: true,
   };
 };
@@ -100,9 +129,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const response = await prismic.getByUID('posts', String(slug), {});
 
   const post = {
+    uid: response.uid,
     first_publication_date: response.first_publication_date,
+    last_publication_date: response.last_publication_date,
     data: {
       title: response.data.title,
+      subtitle: response.data.subtitle,
       banner: {
         url: response.data.banner.url,
       },
@@ -115,9 +147,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }),
     },
   };
+
   return {
     props: { post },
   };
 };
-
-// TODO: - Descrição: Input de *rich text* (HTML). Recebe valores manualmente. Esse campo será utilizado como conteúdo da seção do Post. Perceba que nas configurações do campo, selecionamos algumas opções para que o seu texto tenha varias formatações (negrito, hyperlinks, listas, etc.).
