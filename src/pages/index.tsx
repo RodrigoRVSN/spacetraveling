@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
 
 import { FiCalendar, FiUser } from 'react-icons/fi';
 import Prismic from '@prismicio/client';
-import Link from 'next/link';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 import { getPrismicClient } from '../services/prismic';
@@ -83,6 +84,9 @@ export default function Home({
 
   return (
     <div className={commonStyles.container}>
+      <Head>
+        <title>Início | spacetraveler</title>
+      </Head>
       <img src="/logo.png" alt="logo" />
 
       <main className={styles.content}>

@@ -1,7 +1,8 @@
 /* eslint-disable react/no-danger */
-import next, { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
+import Head from 'next/head';
 
 import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { format } from 'date-fns';
@@ -15,6 +16,7 @@ import Header from '../../components/Header';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
+import Comments from '../Comments';
 
 interface Post {
   first_publication_date: string | null;
@@ -94,6 +96,10 @@ export default function Post({
   return (
     <>
       <Header />
+
+      <Head>
+        <title>{post.data.title} | spacetraveler</title>
+      </Head>
       <img
         className={styles.banner}
         src={post.data.banner.url}
@@ -147,6 +153,8 @@ export default function Post({
             )}
           </div>
         </section>
+
+        <Comments />
 
         {preview && (
           <aside>
