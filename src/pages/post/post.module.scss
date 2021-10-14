@@ -1,1 +1,26 @@
-// TODO
+.postContent {
+  line-height: 1.56rem;
+  h2 {
+    margin: 3.65rem 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+    span {
+      margin: 0 1.5rem 0 0.5rem;
+
+      color: var(--info);
+    }
+  }
+}
+
+.banner {
+  display: block;
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+}
